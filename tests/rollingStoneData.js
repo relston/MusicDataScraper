@@ -16,26 +16,27 @@ describe('Rolling Stone Data', function (){
 	});
 
 	describe('API endpoint',function  (){
-		this.timeout(50000);
 		it('should be reachable', function(done){
 			request.get(siteAlbumEndpoint).end(function(err, res){
 				expect(res.status).to.equal(200);
 				done();
 			});
 		});
-	}):
-	describe('API Scraper', function({
+	});
+
+	describe('API Scraper', function() {
+		
 		it('should return one album', function(done){
 			albumScraper.getRawAlbum(siteAlbumIDs[0], function(data){
 				expect(data.length).to.equal(1);
 				done();
-			})
+			});
 		});
 		it('should return a set of albums', function(done){
 			albumScraper.getRawAlbums(siteAlbumIDs.slice(0,10), function(data){
 				expect(data.length).to.equal(10);
 				done();
-			})
+			});
 		});
 		it.skip('should write a file with data', function (done){
 			var saveUtil  = new rollingStoneData.saveUtil();
@@ -46,8 +47,8 @@ describe('Rolling Stone Data', function (){
 					done();
 				});
 			});
-		})
-	})
+		});
+	});
 	describe('Data Cleaner', function(){
 		it('should return an object');
 		it('should have a rank, artist, album name and album art');
