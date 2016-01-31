@@ -1,10 +1,11 @@
+'use strict';
 var util = require('util')
 var rollingStoneData = require('../data/rollingStoneData');
 
 var repo = new rollingStoneData.cleaner();
 
 //console.log(repo.getAlbumById("145952"));
-function run () {
+function showRSData () {
 	for (var i = 0; i < rollingStoneData.siteAlbumIDs.length; i++) {
 		var album = repo.getAlbumByIndex(i);
 		//console.log(util.format("album id:%s rank:%s", album.albumId, album.albumRank));	
@@ -13,7 +14,22 @@ function run () {
 	};	
 }
 
-run();
+process.argv.forEach((val, index, array) => {
+	if (index >= 2){
+		if (Number(val) >= 0 ) {
+			let album = repo.getAlbumByIndex(val);
+			console.log(album)
+		} else if (val.indexOf('raw') === 0){
+			let albumIndex = Number(val.split(':')[1]);
+			console.log(repo.data[albumIndex]);
+		} else if (val.indexOf('copy') === 0){
+			let albumIndex = Number(val.split(':')[1]);
+			console.log(repo.getAlbumCopy(repo.data[albumIndex].content));
+		} else if (val == 'rsdata') {
+			showRSData();
+		}
+	}
+})
 
 //console.log(repo.getAlbumByIndex(168).rollingStoneContent.albumNameRaw);
 
