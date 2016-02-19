@@ -11,7 +11,10 @@ let siteAlbumEndpoint = "http://www.rollingstone.com/ajax/get-list-items?ids=";
 let writeFileName =  path.join(path.resolve(__dirname),'rawRollingStoneData.json');
 let recordSetSize = 20;
 
-class scraper {
+class Scraper {
+	constructor () {
+
+	}
 	
 	getRawAlbum (id, cb) {
 		let self = this;
@@ -40,9 +43,9 @@ let rawAlbumData, currentAlbum;
 class saveRollingStoneData {
 	constructor() {
 		this.callback;
-		scraper = new scraper();
-		rawAlbumData = [];
-		currentAlbum = 0;
+		this.scraper = new Scraper();
+		this.rawAlbumData = [];
+		this.currentAlbum = 0;
 	}
 	start (cb) {
 		this.callback = cb;
@@ -53,7 +56,7 @@ class saveRollingStoneData {
 		console.info("pulling", currentAlbum, "through", currentAlbum+recordSetSize);
 		let nextSetAlbumIds = siteAlbumIDs.slice(currentAlbum, currentAlbum + recordSetSize);
 		
-		scraper.getRawAlbums(nextSetAlbumIds, function (albums) {
+		this.scraper.getRawAlbums(nextSetAlbumIds, function (albums) {
 			//build out a hash of the OG ids and the raw strings. 
 			for (let i = 0; i < nextSetAlbumIds.length; i++) {
 				rawAlbumData.push({
@@ -147,6 +150,6 @@ class rollingStoneDataCleaner {
 
 exports.siteAlbumIDs = siteAlbumIDs;
 exports.siteAlbumEndpoint = siteAlbumEndpoint;
-exports.scraper = scraper;
+exports.scraper = Scraper;
 exports.saveUtil = saveRollingStoneData;
 exports.cleaner = rollingStoneDataCleaner;

@@ -14,10 +14,15 @@
     "express": "~4.13.1",
     "jade": "~1.11.0",
     "morgan": "~1.6.1",
-    "pg": "^4.4.3",
-    "serve-favicon": "~2.3.0"
+    "pg": "^4.4.4",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^3.19.1",
+    "sequelize-cli": "^2.3.1",
+    "serve-favicon": "~2.3.0",
+    "spotify-web-api-node": "^2.2.0"
   },
   "devDependencies": {
+    "bluebird": "^3.1.5",
     "cheerio": "^0.19.0",
     "expect.js": "^0.3.1",
     "mocha": "^2.3.4",
